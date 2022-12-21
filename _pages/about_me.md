@@ -2,6 +2,7 @@
 permalink: /about_me/
 title: "About Me"
 excerpt: "데이터사이언티스트/데이터 분석가를 꿈꾸는 사람입니다."
+author_profile: true
 last_modified_at: 2022-12-17T11:59:26-04:00
 toc: true
 ---
