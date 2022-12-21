@@ -1,7 +1,7 @@
 ---
 title:  "첫 포스팅입니다!"
 categories:
-  - Edge Case
+  - aboutme
 ---
 
 # 데이터사이언티스트/데이터 분석가를 꿈꾸는 사람입니다.
