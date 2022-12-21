@@ -6,5 +6,7 @@ main:
     url: /year-archive/
   - title: "Project"
     url: /collection-archive/
-  - title: "Study-Archive"
+  - title: "Study"
     url: /study-archive/
+  - title: "Portfolio"
+    url: /portfolio-archive/
