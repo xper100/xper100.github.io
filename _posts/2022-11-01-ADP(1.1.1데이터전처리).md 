@@ -1,0 +1,112 @@
+---
+title:  "[ADP 실기] 1.1.1 데이터 전처리 - 이상치 확인 및 결측값 처리"
+# header:
+#   image: /assets/images/lenovo.jpeg
+#   caption: "Lenovo"
+categories:
+  - ADP실기
+  - 자격증
+toc: true
+---
+
+# 목차
+
+1. 단순대치 & centralimputation (평균, 모드, 빈번한값, 일정한값 등)
+2. 다중 대치
+3. 단순확률 대치 (Hot-deck, nearest neighbor)
+knnImputation
+
+--- 
+
+# 1. 단순대치 & 평균대치
+- 단순대치 - 결측값이 존재하는 레코드를 삭제하는 기법
+- 평균대치 - 관측 또는 실험을 통해 얻어진 데이터의 평균으로 대치하는 기법
+    - 비조건부 평균대치법 : 기초통계량을 통해 대치
+    - 조건부 평균대치법 : 회귀분석을 활용한 대치법
+
+'''Python
+import numpy as np
+from sklearn.impute import SimpleImputer
+
+## 수치형 데이터 - 평균값으로 대치
+imp = SimpleImputer(missing_values=np.nan, strategy='mean')
+
+## 카테고리형 데이터 - 가장 빈번한 값으로 대치
+imp = SimpleImputer(strategy="most_frequent")
+
+### 모듈 훈련
+train = [[55, 20], [np.nan, 35], [71, 64]]
+imp.fit(train)
+
+## 모듈 변환
+test = [[np.nan, 43], [81, np.nan], [76, 34]]
+imp.transform(test)
+'''
+
+# 2. 다중대치
+단순대치법을 m번 반복하여 m개의 가상적 완전 자료를 만드는 방법
+1단계 : 대치(Imputation step)
+2단계 : 분석(Analysis step)
+3단계 : 결합(Combination step)
+
+'''Python
+## IterativeImputer를 쓰기위해 필요한 라이브러리
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+
+## 회귀모델 사용
+from sklearn.linear_model import LinearRegression
+lr = LinearRegression()
+
+## Default = BaysianRidge()
+imp_multiple = IterativeImputer(estimator = lr,random_state = 123)
+
+imp_multiple.fit(train)
+imp_multiple.transform(test)
+'''
+
+# 3. 단순확률 대치 (Single Stochastic Imputation)
+평균대치법에서 추정량 표준 오차의 과소 추정문제를 보완하고자 고완된 방법
+Hot-deck
+Nearest-Neighbor
+
+# 4. KNNImputation
+
+'''Python
+from sklearn.impute import KNNImputer
+
+knnimp = KNNImputer(n_neighbors= 3, add_indicator=True)
+knnimp.fit(train)
+knnimp.transform(test)
+'''
+
+# 5. 시계열 결측값처리
+- Forward Fill
+- Backward Fill
+- Linear Interpolation
+
+'''Python
+timeseries_dataframe.fillna(method = 'ffill', inplace = True)
+
+timeseries_dataframe.fillna(method = 'bfill', inplace = True)
+
+## Interpolate
+"""
+method는 여러가지 방법이 존재
+- linear
+- time
+- index
+- pad
+- polynomial
+- nearest ...
+
+단, Multiindex는 linear만 적용가능
+"""
+timeseries_dataframe.interpolate(method = 'linear',limit_direction='both', inplace = True)
+'''
+
+# 6. 알고리즘 내에서 결측값 처리
+XGBoost & LightGBM은 모델 안에서 결측값 처리 가능
+
+# Reference
+(MICE and KNN missing value imputations through Python)[https://www.numpyninja.com/post/mice-and-knn-missing-value-imputations-through-python#:~:text=Multiple%20Imputation%20by%20Chained%20Equation%20assumes%20that%20data%20is%20MAR,mean%2C%20mode%2C%20or%20median]
