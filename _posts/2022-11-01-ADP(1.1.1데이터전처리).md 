@@ -14,7 +14,7 @@ toc: true
 1. 단순대치 & centralimputation (평균, 모드, 빈번한값, 일정한값 등)
 2. 다중 대치
 3. 단순확률 대치 (Hot-deck, nearest neighbor)
-knnImputation
+4. knnImputation
 
 
 # 1. 단순대치 & 평균대치
@@ -108,4 +108,4 @@ timeseries_dataframe.interpolate(method = 'linear',limit_direction='both', inpla
 XGBoost & LightGBM은 모델 안에서 결측값 처리 가능
 
 # Reference
-(MICE and KNN missing value imputations through Python)[https://www.numpyninja.com/post/mice-and-knn-missing-value-imputations-through-python#:~:text=Multiple%20Imputation%20by%20Chained%20Equation%20assumes%20that%20data%20is%20MAR,mean%2C%20mode%2C%20or%20median]
+MICE and KNN missing value imputations through Python[https://www.numpyninja.com/post/mice-and-knn-missing-value-imputations-through-python#:~:text=Multiple%20Imputation%20by%20Chained%20Equation%20assumes%20that%20data%20is%20MAR,mean%2C%20mode%2C%20or%20median]
