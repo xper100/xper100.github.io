@@ -23,7 +23,7 @@ toc: true
     - 비조건부 평균대치법 : 기초통계량을 통해 대치
     - 조건부 평균대치법 : 회귀분석을 활용한 대치법
 
-'''python
+~~~python
 import numpy as np
 from sklearn.impute import SimpleImputer
 
@@ -40,7 +40,7 @@ imp.fit(train)
 ## 모듈 변환
 test = [[np.nan, 43], [81, np.nan], [76, 34]]
 imp.transform(test)
-'''
+~~~
 
 # 2. 다중대치
 단순대치법을 m번 반복하여 m개의 가상적 완전 자료를 만드는 방법
@@ -48,7 +48,7 @@ imp.transform(test)
 2단계 : 분석(Analysis step)
 3단계 : 결합(Combination step)
 
-'''python
+~~~python
 ## IterativeImputer를 쓰기위해 필요한 라이브러리
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
@@ -62,7 +62,7 @@ imp_multiple = IterativeImputer(estimator = lr,random_state = 123)
 
 imp_multiple.fit(train)
 imp_multiple.transform(test)
-'''
+~~~
 
 # 3. 단순확률 대치 (Single Stochastic Imputation)
 평균대치법에서 추정량 표준 오차의 과소 추정문제를 보완하고자 고완된 방법
@@ -71,20 +71,20 @@ Nearest-Neighbor
 
 # 4. KNNImputation
 
-'''python
+~~~python
 from sklearn.impute import KNNImputer
 
 knnimp = KNNImputer(n_neighbors= 3, add_indicator=True)
 knnimp.fit(train)
 knnimp.transform(test)
-'''
+~~~
 
 # 5. 시계열 결측값처리
 - Forward Fill
 - Backward Fill
 - Linear Interpolation
 
-'''python
+~~~python
 timeseries_dataframe.fillna(method = 'ffill', inplace = True)
 
 timeseries_dataframe.fillna(method = 'bfill', inplace = True)
@@ -102,7 +102,7 @@ method는 여러가지 방법이 존재
 단, Multiindex는 linear만 적용가능
 """
 timeseries_dataframe.interpolate(method = 'linear',limit_direction='both', inplace = True)
-'''
+~~~
 
 # 6. 알고리즘 내에서 결측값 처리
 XGBoost & LightGBM은 모델 안에서 결측값 처리 가능
