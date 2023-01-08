@@ -16,7 +16,6 @@ toc: true
 3. 단순확률 대치 (Hot-deck, nearest neighbor)
 knnImputation
 
---- 
 
 # 1. 단순대치 & 평균대치
 - 단순대치 - 결측값이 존재하는 레코드를 삭제하는 기법
